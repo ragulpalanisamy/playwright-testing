@@ -17,7 +17,7 @@ test.describe('Register form', () => {
     await page.goto('https://dev-app.formzillion.com/register');
     await page.locator('input[type="email"]').click();
     await page.locator('input[type="email"]').press('Control+a');
-    await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
+    await page.locator('input[type="email"]').inputValue();//fill('ragulpalanisamy1001@gmail.com');
     await page.locator('input[type="password"]').click();
     await page.locator('input[type="password"]').press('Control+a');
     await page.locator('input[type="password"]').fill('Ragul1432@');
@@ -25,8 +25,8 @@ test.describe('Register form', () => {
     await page.locator('button[type="submit"]').click();
   })
 });
-
-test.describe('Login Testing', () => {
+//login testing
+ test.describe('Login Testing', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://dev-app.formzillion.com/login');
     await page.locator('input[type="email"]').click({ timeout: 10000 });
@@ -82,7 +82,6 @@ test.describe('Forms', () => {
   });
 
   //Add new Forms
-
   test('Add new forms', async ({ page }) => {
     await page.goto("https://dev-app.formzillion.com/ragulpalanisamy-1001-gmail");
     await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
@@ -90,6 +89,7 @@ test.describe('Forms', () => {
     await page.locator('button[type="submit"]').click({ timeout: 10000 });
 
     await page.getByRole('button', { name: 'Add New' }).click();
+
   })
   //forms filtering for teams
   test('teams-1 forms filtering', async ({ page }) => {
@@ -122,7 +122,7 @@ test.describe('Teams Testing', () => {
     await page.locator('button[type="submit"]').click({ timeout: 10000 });
     //navigation of the teams
     await page.getByText('Apps').click();
-    await page.waitForLoadState('networkidle');
+    //await page.waitForLoadState('networkidle');
     await page.getByText('Usage').click();
     await page.waitForLoadState('networkidle');
     await page.getByText('Activity').click();
@@ -139,3 +139,4 @@ test.describe('Teams Testing', () => {
     //await page.waitForLoadState('networkidle');
   })
 });
+ 
