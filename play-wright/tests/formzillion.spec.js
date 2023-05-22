@@ -40,7 +40,6 @@ test.describe('Register form', () => {
 
   test('nav section', async ({ page }) => {
     await page.getByText('Apps').click();
-    await page.waitForLoadState('networkidle');
     await page.getByText('Usage').click();
     await page.waitForLoadState('networkidle');
     await page.getByText('Activity').click();
