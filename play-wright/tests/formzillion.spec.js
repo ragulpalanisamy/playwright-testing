@@ -11,8 +11,6 @@ test.describe('Title testing', () => {
   });
 })
 
-
-
 //regiter testing
 test.describe('Register form', () => {
   test('regiteration test', async ({ page }) => {
@@ -29,7 +27,7 @@ test.describe('Register form', () => {
 });
 
 test.describe('Login Testing', () => {
- test.beforeEach(async ({page}) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('https://dev-app.formzillion.com/login');
     await page.locator('input[type="email"]').click({ timeout: 10000 });
     await page.locator('input[type="email"]').press('Control+a');
@@ -40,7 +38,7 @@ test.describe('Login Testing', () => {
     await page.locator('button[type="submit"]').click({ timeout: 10000 });
   });
 
-  test('nav section', async ({page}) => {
+  test('nav section', async ({ page }) => {
     await page.getByText('Apps').click();
     await page.waitForLoadState('networkidle');
     await page.getByText('Usage').click();
@@ -62,12 +60,12 @@ test.describe('Login Testing', () => {
     // await page.waitForLoadState('networkidle');
     await page.getByText('Tokens');
     // await page.waitForLoadState('networkidle');
-   });
+  });
 });
 
-test.describe('Forms',()=>{
-//users forms 
-  test('form filltering in the search bar',async({page})=>{
+test.describe('Forms', () => {
+  //users forms 
+  test('form filltering in the search bar', async ({ page }) => {
     await page.goto("https://dev-app.formzillion.com/ragulpalanisamy-1001-gmail");
     await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
     await page.locator('input[type="password"]').fill('Ragul1432@');
@@ -81,9 +79,20 @@ test.describe('Forms',()=>{
     await page.locator('input[id="search"]').clear();
     await page.locator('input[id="search"]').fill('Customer Feedback');
     await page.locator('input[id="search"]').clear();
+  });
+
+  //Add new Forms
+
+  test('Add new forms', async ({ page }) => {
+    await page.goto("https://dev-app.formzillion.com/ragulpalanisamy-1001-gmail");
+    await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
+    await page.locator('input[type="password"]').fill('Ragul1432@');
+    await page.locator('button[type="submit"]').click({ timeout: 10000 });
+
+    await page.getByRole('button', { name: 'Add New' }).click();
   })
   //forms filtering for teams
-  test('teams-1 forms filtering', async({page})=>{
+  test('teams-1 forms filtering', async ({ page }) => {
     await page.goto("https://dev-app.formzillion.com/zillion-stack");
     await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
     await page.locator('input[type="password"]').fill('Ragul1432@');
@@ -93,7 +102,7 @@ test.describe('Forms',()=>{
     await page.locator('input[id="search"]').clear();
     await page.locator('input[id="search"]').fill('Zillion Stack');
   });
-  test('teams-2 forms filtering', async({page})=>{
+  test('teams-2 forms filtering', async ({ page }) => {
     await page.goto("https://dev-app.formzillion.com/web-development");
     await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
     await page.locator('input[type="password"]').fill('Ragul1432@');
@@ -111,7 +120,7 @@ test.describe('Teams Testing', () => {
     await page.locator('input[type="email"]').fill('ragulpalanisamy1001@gmail.com');
     await page.locator('input[type="password"]').fill('Ragul1432@');
     await page.locator('button[type="submit"]').click({ timeout: 10000 });
-//navigation of the teams
+    //navigation of the teams
     await page.getByText('Apps').click();
     await page.waitForLoadState('networkidle');
     await page.getByText('Usage').click();
