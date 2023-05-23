@@ -20,7 +20,7 @@ test.describe('Register form', () => {
     await page.locator('input[type="email"]').inputValue();//fill('ragulpalanisamy1001@gmail.com');
     await page.locator('input[type="password"]').click();
     await page.locator('input[type="password"]').press('Control+a');
-    await page.locator('input[type="password"]').fill('Ragul1432@');
+    await page.locator('input[type="password"]').fill('Qwerty@123');
     await page.getByRole('checkbox').check();
     await page.locator('button[type="submit"]').click();
   })
