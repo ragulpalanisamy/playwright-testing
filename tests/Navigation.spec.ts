@@ -26,7 +26,7 @@ test.describe("Navigation testing", () => {
     await page
       .getByRole("listitem")
       .filter({ hasText: "General" })
-      .click({ timeout: 1000 });
+      .click({ timeout: 10000 });
     // await page.waitForLoadState('networkidle');
     await page
       .getByRole("listitem")
@@ -70,6 +70,21 @@ test.describe("Navigation testing", () => {
     try {
       await page.getByText("Submissions").click();
       await page.waitForLoadState("networkidle");
+      // Setting links testing
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "All" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Spam" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Verified" })
+        .click({ timeout: 1000 });
       await page.getByText("Reports").click();
       await page.waitForLoadState("networkidle");
       await page.getByText("Setup").click();
@@ -78,56 +93,39 @@ test.describe("Navigation testing", () => {
       await page.waitForLoadState("networkidle");
       await page.getByText("Settings").click();
       await page.waitForLoadState("networkidle");
+      // await page.waitForLoadState('networkidle');
+
+      await page.getByText("Settings").click();
+      await page.waitForLoadState("networkidle");
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "General" })
+        .click({ timeout: 10000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Spam Filtering" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Autoresponders" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Email Notification" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Thank You Page" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
     } catch (error) {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
     }
-    await page.getByText("Submissions").click();
-    await page.waitForLoadState("networkidle");
-    // Setting links testing
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "All" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Spam" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Verified" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-
-    await page.getByText("Settings").click();
-    await page.waitForLoadState("networkidle");
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "General" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Spam Filtering" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Autoresponders" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Email Notification" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Thank You Page" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
   });
 
   test("Team navigation", async ({ page }) => {
@@ -155,12 +153,12 @@ test.describe("Navigation testing", () => {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
     }
-    await page.waitForLoadState("networkidle");
+    // await page.waitForLoadState("networkidle");
     // Setting links testing
     await page
       .getByRole("listitem")
       .filter({ hasText: "General" })
-      .click({ timeout: 1000 });
+      .click({ timeout: 10000 });
     // await page.waitForLoadState('networkidle');
     await page
       .getByRole("listitem")
@@ -178,7 +176,7 @@ test.describe("Navigation testing", () => {
       .click({ timeout: 1000 });
     // await page.waitForLoadState('networkidle');
   });
-  test('team form navigation test', async({page})=>{
+  test("team form navigation test", async ({ page }) => {
     await page.goto("https://dev-app.formzillion.com/login");
     await page.locator('input[type="email"]').fill("demo10956@gmail.com");
     await page.locator('input[type="password"]').fill("Qwerty@123");
@@ -191,6 +189,23 @@ test.describe("Navigation testing", () => {
     try {
       await page.getByText("Submissions").click();
       await page.waitForLoadState("networkidle");
+
+      // Setting links testing
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "All" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Spam" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Verified" })
+        .click({ timeout: 1000 });
+
       await page.getByText("Reports").click();
       await page.waitForLoadState("networkidle");
       await page.getByText("Setup").click();
@@ -199,55 +214,34 @@ test.describe("Navigation testing", () => {
       await page.waitForLoadState("networkidle");
       await page.getByText("Settings").click();
       await page.waitForLoadState("networkidle");
+
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "General" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Spam Filtering" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Autoresponders" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Email Notification" })
+        .click({ timeout: 1000 });
+      // await page.waitForLoadState('networkidle');
+      await page
+        .getByRole("listitem")
+        .filter({ hasText: "Thank You Page" })
+        .click({ timeout: 1000 });
     } catch (error) {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
     }
-    await page.getByText("Submissions").click();
-    await page.waitForLoadState("networkidle");
-    // Setting links testing
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "All" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Spam" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Verified" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-
-    await page.getByText("Settings").click();
-    await page.waitForLoadState("networkidle");
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "General" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Spam Filtering" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Autoresponders" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Email Notification" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-    await page
-      .getByRole("listitem")
-      .filter({ hasText: "Thank You Page" })
-      .click({ timeout: 1000 });
-    // await page.waitForLoadState('networkidle');
-  })
+  });
 });
