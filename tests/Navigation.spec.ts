@@ -57,6 +57,7 @@ test.describe("Navigation testing", () => {
 
   //forms navigation testing
   test("forms navigation testing", async ({ page }) => {
+    //hardcoded the form navigation
     await page.goto('https://dev-app.formzillion.com/login');
     await page.locator('input[type="email"]').fill("demo10956@gmail.com");
     await page.locator('input[type="password"]').fill("Qwerty@123");
@@ -126,5 +127,32 @@ test.describe("Navigation testing", () => {
     .click({ timeout: 1000 });
   // await page.waitForLoadState('networkidle');
   });
+
+  test('Team navigation', async({page})=>{
+    //hardcoded team navigation 
+    await page.goto('https://dev-app.formzillion.com/login');
+    await page.locator('input[type="email"]').fill("demo10956@gmail.com");
+    await page.locator('input[type="password"]').fill("Qwerty@123");
+    await page.getByText("Remember me").check();
+    await page.locator('button[type="submit"]').click({ timeout: 10000 });
+    await page.waitForLoadState("networkidle");
+    await page.goto('https://dev-app.formzillion.com/ragul-pj');
+    await page.waitForLoadState("networkidle");
+    try {
+      await page.getByText("Forms").click({ timeout: 10000});
+      await page.waitForLoadState("networkidle");
+      await page.getByText("Apps").click({ timeout: 20000});
+      await page.waitForLoadState("networkidle");
+      await page.getByText("Usage").click();
+      await page.waitForLoadState("networkidle");
+      await page.getByText("Activity").click();
+      await page.waitForLoadState("networkidle");
+      await page.getByText("Settings").click();
+      await page.waitForLoadState("networkidle");
+    } catch (error) {
+      if (error instanceof playwright.errors.TimeoutError)
+        console.log("Timeout!");
+    }
+  })
 
 });
