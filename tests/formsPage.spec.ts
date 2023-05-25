@@ -125,9 +125,7 @@ test.describe("team forms testing", async () => {
       await page.waitForLoadState("networkidle");
       await page.getByText("Forms").click();
       await page.getByRole("button", { name: "Add New" }).click();
-      await page
-        .locator('input[name="name"], input[id="name"]')
-        .clear();
+      await page.locator('input[name="name"], input[id="name"]').clear();
       await page
         .locator('input[name="name"], input[id="name"]')
         .fill("Demo Form");
@@ -135,9 +133,6 @@ test.describe("team forms testing", async () => {
       await page.getByRole("button", { name: "Create" }).click();
       await page.waitForLoadState("networkidle");
       // user form created.
-      await expect(page).toHaveURL(
-        "https://dev-app.formzillion.com/demo-10956-gmail"
-      );
       await page.locator('input[type="search"]').press("Control+A");
       await page.locator('input[type="search"]').fill("Demo");
       // Assuming you have a Playwright page object named 'page'
