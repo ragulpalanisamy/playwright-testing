@@ -3,7 +3,7 @@ import { test } from "@playwright/test";
 const playwright = require("@playwright/test");
 
 test.describe("Forms page", async () => {
-  test("search bar and add new button", async ({ page }) => {
+  test("personal search bar test", async ({ page }) => {
     try {
       await page.goto("https://dev-app.formzillion.com/login");
       await page.locator('input[type="email"]').fill("demo10956@gmail.com");
@@ -30,7 +30,7 @@ test.describe("Forms page", async () => {
   });
 
   //add new forms test
-  test("Add New Forms Button test", async ({ page }) => {
+  test("personal Add New Forms Button test", async ({ page }) => {
     try {
       await page.goto("https://dev-app.formzillion.com/login");
       await page.locator('input[type="email"]').fill("demo10956@gmail.com");
@@ -58,7 +58,7 @@ test.describe("Forms page", async () => {
       );
       await page.locator('input[type="search"]').press("Control+A");
       await page.locator('input[type="search"]').fill("Demo");
-      // Assuming you have a Playwright page object named 'page'
+      // Assuming page object named 'page'
       if (page) {
         const formValueHandle = await page.$('input[type="search"]');
 
@@ -78,14 +78,14 @@ test.describe("Forms page", async () => {
         console.log("Page not available.");
       }
     } catch (error) {
-      if (error instanceof playwright.errors.TimeoutError)
-        console.log("Timeout!");
+      if (error instanceof playwright.errors.name)
+        console.log("please check the form name...");
     }
   });
 });
 
 test.describe("team forms testing", async () => {
-  test("teams form testing", async ({ page }) => {
+  test("teams search bar test", async ({ page }) => {
     try {
       await page.goto("https://dev-app.formzillion.com/login");
       await page.locator('input[type="email"]').fill("demo10956@gmail.com");
@@ -160,8 +160,8 @@ test.describe("team forms testing", async () => {
         console.log("Page not available.");
       }
     } catch (error) {
-      if (error instanceof playwright.errors.TimeoutError)
-        console.log("Timeout!");
+      if (error instanceof playwright.errors.name)
+        console.log("please check the form name...");
     }
   });
 });
