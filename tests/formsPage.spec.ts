@@ -46,7 +46,7 @@ test.describe("Forms page", async () => {
       await page
         .locator('input[name="name"], input[id="name"]')
         .press("Control+A");
-      const form = await page
+      await page
         .locator('input[name="name"], input[id="name"]')
         .fill("Demo Form");
       await page.locator('input[type="email"][name="sendToEmail"]').clear();
