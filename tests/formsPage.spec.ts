@@ -127,8 +127,8 @@ test.describe("team forms testing", async () => {
       await page.getByRole("button", { name: "Add New" }).click();
       await page
         .locator('input[name="name"], input[id="name"]')
-        .press("Control+A");
-      const form = await page
+        .clear();
+      await page
         .locator('input[name="name"], input[id="name"]')
         .fill("Demo Form");
       await page.locator('input[type="email"][name="sendToEmail"]').clear();
