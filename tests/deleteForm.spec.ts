@@ -6,7 +6,7 @@ test.describe("deleting the form testing", async () => {
     try {
       await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill("Qwerty@123");
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
@@ -36,7 +36,7 @@ test.describe("deleting the form testing", async () => {
       if (error instanceof playwright.error.timeout)
         console.log("please check your form name..");
     }
-    await page.goto("https://dev-app.formzillion.com/demo-10956-gmail");
+    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`);
     await page.locator('input[type="search"]').clear();
     await page.locator('input[type="search"]').fill("Central");
     await page.locator('input[type="search"]').clear();
@@ -47,13 +47,13 @@ test.describe("deleting the form testing", async () => {
 test.describe("team form delete test", async () => {
   test("deleting the team form", async ({ page }) => {
     try {
-      await page.goto("https://dev-app.formzillion.com/login");
-      await page.locator('input[type="email"]').fill("demo10956@gmail.com");
-      await page.locator('input[type="password"]').fill("Qwerty@123");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
-      await page.goto("https://dev-app.formzillion.com/ragul-pj");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
       await page.waitForLoadState("networkidle");
       await page.goto(
         `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`
