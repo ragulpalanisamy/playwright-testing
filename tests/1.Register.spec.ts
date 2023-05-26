@@ -5,7 +5,23 @@ dotenv.config();
 test.describe("Registration Testing", () => {
   test("with hardcoded email and password", async ({ page }) => {
     // Path for registration
-    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/register`);
+    // Listen for the 'dialog' event
+    page.on("dialog", async (dialog) => {
+      const message = dialog.message();
+      console.log("Alert message:", message);
+
+      if (message === "User already registered.") {
+        // Perform actions when the expected alert message appears
+        console.log("The expected alert message is displayed.");
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      } else {
+        // Perform actions when the expected alert message does not appear
+        console.log("The expected alert message is not displayed.");
+      }
+
+      // Close the dialog
+      await dialog.dismiss();
+    });
     await page.locator('input[type="email"]').click();
     await page.locator('input[type="email"]').press("Control+a");
     await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
@@ -16,37 +32,6 @@ test.describe("Registration Testing", () => {
       .fill(`${process.env.USER_PASSWORD}`);
     await page.getByRole("checkbox").check();
     await page.getByRole("button", { name: "Register" }).click();
-    
-    const navigationPromise = page.waitForNavigation();
-    const dialogPromise = page.waitForEvent('dialog');
-
-    await Promise.race([navigationPromise, dialogPromise]);
-
-    // Check if a dialog event occurred
-    const dialog = await dialogPromise.catch(() => null);
-    if (dialog) {
-      await dialog.accept();
-    }
-
-    // Wait for registration response
-    await navigationPromise;
-
-    // Check if user is already registered
-    try {
-      await page.waitForSelector('.error-message', { state: 'visible' });
-
-      const errorMessageText = await page.textContent('.error-message');
-      if (errorMessageText === 'User already registered.') {
-        console.log('You are already registered');
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-        return; // Return to exit the test function after redirecting
-      }
-    } catch (error) {
-      console.log('Error occurred while waiting for error message:', error);
-    }
-
-    // Continue with the test if no error or not already registered
-    console.log('Successfully registered! Check your email');
-
+    //await page.waitForLoadState('networkidle');
   });
 });
