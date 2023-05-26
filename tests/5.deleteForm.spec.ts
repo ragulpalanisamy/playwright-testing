@@ -1,5 +1,9 @@
 import { test } from "@playwright/test";
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 const playwright = require("@playwright/test");
+
 
 test.describe("deleting the form testing", async () => {
   test("personal forms deletion", async ({ page }) => {
