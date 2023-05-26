@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 test.describe("Login Testing", () => {
-  test("USER_C", async ({ page }) => {
+  test("USER_LOGIN", async ({ page }) => {
     console.log("USER_EMAIL:", process.env.USER_EMAIL);
     console.log("USER_PASSWORD:", process.env.USER_PASSWORD);
     console.log("USER_NAME:", process.env.USER_NAME);
