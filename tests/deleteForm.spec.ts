@@ -4,14 +4,14 @@ const playwright = require("@playwright/test");
 test.describe("deleting the form testing", async () => {
   test("personal forms deletion", async ({ page }) => {
     try {
-      await page.goto("https://dev-app.formzillion.com/login");
-      await page.locator('input[type="email"]').fill("demo10956@gmail.com");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill("Qwerty@123");
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
       await page.goto(
-        "https://dev-app.formzillion.com/demo-10956-gmail/lyxEgz4B/settings"
+        `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`
       );
       //list item to check for delete form
       await page
@@ -56,7 +56,7 @@ test.describe("team form delete test", async () => {
       await page.goto("https://dev-app.formzillion.com/ragul-pj");
       await page.waitForLoadState("networkidle");
       await page.goto(
-        "https://dev-app.formzillion.com/ragul-pj/mrJp2Tcq/settings"
+        `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`
       );
       await page.waitForLoadState("networkidle");
       await page

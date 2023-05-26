@@ -1,18 +1,20 @@
 import { expect } from "@playwright/test";
 import { test } from "@playwright/test";
+import * as dotenv from 'dotenv';
+dotenv.config();
 const playwright = require("@playwright/test");
 
 test.describe("Forms page", async () => {
   test("personal search bar test", async ({ page }) => {
     try {
-      await page.goto("https://dev-app.formzillion.com/login");
-      await page.locator('input[type="email"]').fill("demo10956@gmail.com");
-      await page.locator('input[type="password"]').fill("Qwerty@123");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        "https://dev-app.formzillion.com/demo-10956-gmail"
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
       );
       //forms page testing the search bar
       // await page.getByText("Forms").click();
@@ -32,14 +34,14 @@ test.describe("Forms page", async () => {
   //add new forms test
   test("personal Add New Forms Button test", async ({ page }) => {
     try {
-      await page.goto("https://dev-app.formzillion.com/login");
-      await page.locator('input[type="email"]').fill("demo10956@gmail.com");
-      await page.locator('input[type="password"]').fill("Qwerty@123");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        "https://dev-app.formzillion.com/demo-10956-gmail"
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
       );
       await page.getByText("Forms").click();
       await page.getByRole("button", { name: "Add New" }).click();
@@ -54,7 +56,7 @@ test.describe("Forms page", async () => {
       await page.waitForLoadState("networkidle");
       // user form created.
       await expect(page).toHaveURL(
-        "https://dev-app.formzillion.com/demo-10956-gmail"
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
       );
       await page.locator('input[type="search"]').press("Control+A");
       await page.locator('input[type="search"]').fill("Demo");
@@ -87,16 +89,16 @@ test.describe("Forms page", async () => {
 test.describe("team forms testing", async () => {
   test("teams search bar test", async ({ page }) => {
     try {
-      await page.goto("https://dev-app.formzillion.com/login");
-      await page.locator('input[type="email"]').fill("demo10956@gmail.com");
-      await page.locator('input[type="password"]').fill("Qwerty@123");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        "https://dev-app.formzillion.com/demo-10956-gmail"
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
       );
-      await page.goto("https://dev-app.formzillion.com/ragul-pj");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
       await page.waitForLoadState("networkidle");
       await page.locator('input[type="search"]').clear();
       await page.locator('input[type="search"]').fill("Future");
@@ -112,16 +114,16 @@ test.describe("team forms testing", async () => {
   });
   test("Teams Add New Forms Button test", async ({ page }) => {
     try {
-      await page.goto("https://dev-app.formzillion.com/login");
-      await page.locator('input[type="email"]').fill("demo10956@gmail.com");
-      await page.locator('input[type="password"]').fill("Qwerty@123");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({ timeout: 10000 });
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        "https://dev-app.formzillion.com/demo-10956-gmail"
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
       );
-      await page.goto("https://dev-app.formzillion.com/ragul-pj");
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
       await page.waitForLoadState("networkidle");
       await page.getByText("Forms").click();
       await page.getByRole("button", { name: "Add New" }).click();
