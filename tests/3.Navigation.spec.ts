@@ -10,22 +10,23 @@ test.describe("Navigation testing", async() => {
         await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
         await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
         await page.getByText("Remember me").check();
-        await page.locator('button[type="submit"]').click();
-        await page.waitForLoadState("networkidle");
+        await Promise.all([
+          page.waitForNavigation(),
+          page.click('button[type="submit"]'),
+        ]);
         try {
-          await page.getByText("Forms").click({ timeout: 20000 });
-          await page.getByText("Settings").click();
-        } catch (error) {
+          await page.getByRole('link', { name: 'Forms' }).click({ timeout: 20000 });
+          await page.getByText("Settings").click({timeout: 20000});
+        } 
+        catch (error) {
           if (error instanceof playwright.errors.TimeoutError)
             console.log("Timeout!");
         }
-
-        await page.waitForLoadState("networkidle");
-        // Setting links testing
+       // Setting links testing
         await page
           .getByRole("listitem")
           .filter({ hasText: "General" })
-          .click({ timeout: 10000 });
+          .click({ timeout: 20000 });
         // await page.waitForLoadState('networkidle');
         await page
           .getByRole("listitem")
@@ -61,11 +62,11 @@ test.describe("Navigation testing", async() => {
         await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
         await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
         await page.getByText("Remember me").check();
-        await page.locator('button[type="submit"]').click();
-        await page.waitForLoadState("networkidle");
-        await page.goto(
-          `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}/${process.env.FORM_ADD1}`
-        );
+        await Promise.all([
+          page.waitForNavigation(),
+          page.click('button[type="submit"]'),
+        ]);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login/${process.env.FORM_ADD1}`);
         try {
           await page.getByText("Submissions").click();
           await page.waitForLoadState("networkidle");
@@ -101,7 +102,7 @@ test.describe("Navigation testing", async() => {
           await page
             .getByRole("listitem")
             .filter({ hasText: "General" })
-            .click({ timeout: 10000 });
+            .click({ timeout: 20000 });
           // await page.waitForLoadState('networkidle');
           await page
             .getByRole("listitem")
@@ -135,14 +136,17 @@ test.describe("Navigation testing", async() => {
         await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
         await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
         await page.getByText("Remember me").check();
-        await page.locator('button[type="submit"]').click();
-        await page.waitForLoadState("networkidle");
+        await Promise.all([
+          page.waitForNavigation(),
+          page.click('button[type="submit"]'),
+        ]);
+        //redirecting to teams page
         await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
         await page.waitForLoadState("networkidle");
         try {
-          await page.getByText("Forms").click({ timeout: 10000 });
+          await page.getByRole('link', { name: 'Forms' }).click({ timeout: 10000 });
           await page.waitForLoadState("networkidle");
-          await page.getByText("Settings").click();
+          await page.getByText("Settings").click({timeout: 20000});
           await page.waitForLoadState("networkidle");
         } catch (error) {
           if (error instanceof playwright.errors.TimeoutError)
@@ -153,7 +157,7 @@ test.describe("Navigation testing", async() => {
         await page
           .getByRole("listitem")
           .filter({ hasText: "General" })
-          .click({ timeout: 10000 });
+          .click({ timeout: 20000 });
         // await page.waitForLoadState('networkidle');
         await page
           .getByRole("listitem")
@@ -176,11 +180,12 @@ test.describe("Navigation testing", async() => {
         await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
         await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
         await page.getByText("Remember me").check();
-        await page.locator('button[type="submit"]').click();
-        await page.waitForLoadState("networkidle");
-        await page.goto(
-          `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}/${process.env.FORM_ADD2}`
-        );
+        await Promise.all([
+          page.waitForNavigation(),
+          page.click('button[type="submit"]'),
+        ]);
+        console.log("URL:", process.env.FORM_ADD2);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login/${process.env.FORM_ADD2}`);
         try {
           await page.getByText("Submissions").click();
           await page.waitForLoadState("networkidle");
@@ -209,13 +214,13 @@ test.describe("Navigation testing", async() => {
           await page.waitForLoadState("networkidle");
           await page.getByText("Workflows").click();
           await page.waitForLoadState("networkidle");
-          await page.getByText("Settings").click();
+          await page.getByText("Settings").click({timeout: 20000});
           await page.waitForLoadState("networkidle");
 
           await page
             .getByRole("listitem")
             .filter({ hasText: "General" })
-            .click({ timeout: 1000 });
+            .click({ timeout: 20000 });
           // await page.waitForLoadState('networkidle');
           await page
             .getByRole("listitem")

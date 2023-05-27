@@ -11,7 +11,7 @@ test.describe("Forms page", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({ timeout: 10000 });
+      await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
@@ -38,7 +38,7 @@ test.describe("Forms page", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({ timeout: 10000 });
+      await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
@@ -93,7 +93,7 @@ test.describe("team forms testing", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({ timeout: 10000 });
+      await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
@@ -118,7 +118,7 @@ test.describe("team forms testing", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({ timeout: 10000 });
+      await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`

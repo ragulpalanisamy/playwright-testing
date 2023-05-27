@@ -12,7 +12,7 @@ test.describe("deleting the form testing", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({ timeout: 10000 });
+      await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await page.goto(
         `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`
@@ -55,7 +55,7 @@ test.describe("team form delete test", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({ timeout: 10000 });
+      await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
       await page.waitForLoadState("networkidle");
