@@ -8,14 +8,14 @@ const playwright = require("@playwright/test");
 test.describe("deleting the form testing", async () => {
   test("personal forms deletion", async ({ page }) => {
     try {
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await page.goto(
-        `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`
+        `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`.replace(/"/g, "")
       );
       //list item to check for delete form
       await page
@@ -40,7 +40,7 @@ test.describe("deleting the form testing", async () => {
       if (error instanceof playwright.error.timeout)
         console.log("please check your form name..");
     }
-    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`);
+    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, ""));
     await page.locator('input[type="search"]').clear();
     await page.locator('input[type="search"]').fill("Central");
     await page.locator('input[type="search"]').clear();
@@ -51,16 +51,16 @@ test.describe("deleting the form testing", async () => {
 test.describe("team form delete test", async () => {
   test("deleting the team form", async ({ page }) => {
     try {
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`.replace(/"/g, ""));
       await page.waitForLoadState("networkidle");
       await page.goto(
-        `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`
+        `${process.env.NEXT_PUBLIC_TEAM_SETTING_URL}`.replace(/"/g, "")
       );
       await page.waitForLoadState("networkidle");
       await page

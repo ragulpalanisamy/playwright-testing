@@ -11,8 +11,10 @@ test.describe("Forms page", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({timeout:40000});
-      await page.waitForLoadState("networkidle");
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
@@ -38,22 +40,25 @@ test.describe("Forms page", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({timeout:40000});
-      await page.waitForLoadState("networkidle");
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
-      await page.getByText("Forms").click();
+      await page.getByRole('link', { name: 'Forms' }).click();
       await page.getByRole("button", { name: "Add New" }).click();
       await page
-        .locator('input[name="name"], input[id="name"]')
-        .press("Control+A");
+        .locator('input[name="name"], input[id="name"]');
       await page
         .locator('input[name="name"], input[id="name"]')
         .fill("Demo Form");
-      await page.locator('input[type="email"][name="sendToEmail"]').clear();
-      await page.getByRole("button", { name: "Create" }).click();
-      await page.waitForLoadState("networkidle");
+      await page.locator('input[type="email"][name="sendToEmail"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await Promise.all([
+        page.waitForNavigation(),
+        page.getByRole("button", { name: "Create" }).click(),
+      ]);
       // user form created.
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
@@ -93,8 +98,10 @@ test.describe("team forms testing", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({timeout:40000});
-      await page.waitForLoadState("networkidle");
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
@@ -118,14 +125,16 @@ test.describe("team forms testing", async () => {
       await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
-      await page.locator('button[type="submit"]').click({timeout:40000});
-      await page.waitForLoadState("networkidle");
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
       await expect(page).toHaveURL(
         `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
       await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`.replace(/"/g, ""));
       await page.waitForLoadState("networkidle");
-      await page.getByText("Forms").click();
+      await page.getByRole('link', { name: 'Forms' }).click();
       await page.getByRole("button", { name: "Add New" }).click();
       await page.locator('input[name="name"], input[id="name"]').clear();
       await page
