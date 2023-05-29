@@ -13,7 +13,11 @@ test.describe("Registration Testing", () => {
       await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
 
       await page.getByRole("checkbox").check();
-      await page.getByRole("button", { name: "Register" }).click();
+      //await page.getByRole("button", { name: "Register" }).click();
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
 
       // Wait for an alert dialog
     const dialog = await page.waitForEvent('dialog');
