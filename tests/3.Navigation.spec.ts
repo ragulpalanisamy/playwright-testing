@@ -6,9 +6,9 @@ const playwright = require("@playwright/test");
 
 test.describe("Navigation testing", async() => {
       test("user nav section", async ({ page }) => {
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
         await page.getByText("Remember me").check();
         await Promise.all([
           page.waitForNavigation(),
@@ -58,15 +58,15 @@ test.describe("Navigation testing", async() => {
       //forms navigation testing
       test("forms navigation testing", async ({ page }) => {
         //hardcoded the form navigation
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
         await page.getByText("Remember me").check();
         await Promise.all([
           page.waitForNavigation(),
           page.click('button[type="submit"]'),
         ]);
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login/${process.env.FORM_ADD1}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.FORM_ADD1}`.replace(/"/g, ""));
         try {
           await page.getByText("Submissions").click();
           await page.waitForLoadState("networkidle");
@@ -132,16 +132,16 @@ test.describe("Navigation testing", async() => {
 
       test("Team navigation", async ({ page }) => {
         //hardcoded team navigation
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
         await page.getByText("Remember me").check();
         await Promise.all([
           page.waitForNavigation(),
           page.click('button[type="submit"]'),
         ]);
         //redirecting to teams page
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`.replace(/"/g, ""));
         await page.waitForLoadState("networkidle");
         try {
           await page.getByRole('link', { name: 'Forms' }).click({ timeout: 10000 });
@@ -176,16 +176,16 @@ test.describe("Navigation testing", async() => {
         // await page.waitForLoadState('networkidle');
       });
       test("team form navigation test", async ({ page }) => {
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+        await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+        await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
         await page.getByText("Remember me").check();
         await Promise.all([
           page.waitForNavigation(),
           page.click('button[type="submit"]'),
         ]);
         console.log("URL:", process.env.FORM_ADD2);
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login/${process.env.FORM_ADD2}`);
+        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.FORM_ADD2}`.replace(/"/g, ""));
         try {
           await page.getByText("Submissions").click();
           await page.waitForLoadState("networkidle");
