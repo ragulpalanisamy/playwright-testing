@@ -4,31 +4,34 @@ dotenv.config();
 
 test.describe("Registration Testing", () => {
   test("with hardcoded email and password", async ({ page }) => {
-    page.on("dialog", async (dialog) => {
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/register`.replace(/"/g, ""));
       await page.locator('input[type="email"]').click();
       await page.locator('input[type="email"]').press("Control+a");
-      await page.locator('input[type="email"]').fill(process.env.USER_EMAIL);
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
       await page.locator('input[type="password"]').click();
       await page.locator('input[type="password"]').press("Control+a");
       await page
         .locator('input[type="password"]')
-        .fill(process.env.USER_PASSWORD);
+        .fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
 
       await page.getByRole("checkbox").check();
       await page.getByRole("button", { name: "Register" }).click();
 
-      await page.waitForTimeout('networkidle'); // Adjust the delay time as needed
-      const message = await dialog.defaultValue();
-      console.log("Alert message:", message);
+      // Wait for an alert dialog
+    const dialog = await page.waitForEvent('dialog');
 
-      if (message === "User already registered.") {
-        console.log("You Already register !.. you will be redirected to login page");
-        await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      } else {
-        console.log("Successfully registered!...");
-      }
+    // Extract the alert message
+    const alertMessage = dialog.message();
 
-      await dialog.dismiss();
-    });
+    // Check the alert message
+    if (alertMessage.includes("already registered")) {
+      console.log("User is already registered.");
+      // Perform the necessary actions if the user is already registered
+    } else {
+      console.log("User registration successful.");
+      // Perform the necessary actions if the user registration is successful
+    }
+
+     
   });
 });
