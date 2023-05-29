@@ -187,7 +187,7 @@ test.describe("Navigation testing", async() => {
         console.log("URL:", process.env.FORM_ADD2);
         await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.FORM_ADD2}`.replace(/"/g, ""));
         try {
-          await page.getByText("Submissions").click();
+          await page.getByRole('link', { name: 'Submissions' }).click();
           await page.waitForLoadState("networkidle");
 
           // Setting links testing

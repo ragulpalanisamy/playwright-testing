@@ -7,14 +7,14 @@ const playwright = require("@playwright/test");
 test.describe("Forms page", async () => {
   test("personal search bar test", async ({ page }) => {
     try {
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
       //forms page testing the search bar
       // await page.getByText("Forms").click();
@@ -34,14 +34,14 @@ test.describe("Forms page", async () => {
   //add new forms test
   test("personal Add New Forms Button test", async ({ page }) => {
     try {
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
       await page.getByText("Forms").click();
       await page.getByRole("button", { name: "Add New" }).click();
@@ -56,7 +56,7 @@ test.describe("Forms page", async () => {
       await page.waitForLoadState("networkidle");
       // user form created.
       await expect(page).toHaveURL(
-        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
       await page.locator('input[type="search"]').press("Control+A");
       await page.locator('input[type="search"]').fill("Demo");
@@ -89,16 +89,16 @@ test.describe("Forms page", async () => {
 test.describe("team forms testing", async () => {
   test("teams search bar test", async ({ page }) => {
     try {
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`.replace(/"/g, ""));
       await page.waitForLoadState("networkidle");
       await page.locator('input[type="search"]').clear();
       await page.locator('input[type="search"]').fill("Future");
@@ -114,16 +114,16 @@ test.describe("team forms testing", async () => {
   });
   test("Teams Add New Forms Button test", async ({ page }) => {
     try {
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
-      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`);
-      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, ""));
+      await page.locator('input[type="email"]').fill(`${process.env.USER_EMAIL}`.replace(/"/g, ""));
+      await page.locator('input[type="password"]').fill(`${process.env.USER_PASSWORD}`.replace(/"/g, ""));
       await page.getByText("Remember me").check();
       await page.locator('button[type="submit"]').click({timeout:40000});
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(
-        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.USER_NAME}`.replace(/"/g, "")
       );
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`);
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.TEAM_NAME}`.replace(/"/g, ""));
       await page.waitForLoadState("networkidle");
       await page.getByText("Forms").click();
       await page.getByRole("button", { name: "Add New" }).click();
