@@ -35,7 +35,9 @@ test.describe("personal Avatar Updating", async () => {
       .getByRole("listitem")
       .filter({ hasText: "General" })
       .click({ timeout: 20000 });
-    await page.locator('input[type="file"]').click({ timeout: 3000 });
-    await page.getByRole('button',{name: "Save"}).nth(2).click();
+      await page.getByLabel('Change User photo').click();
+      //await page.getByLabel('Change User photo').setInputFiles('Screenshot 2023-05-19 180659.png');
+      await page.locator('div').filter({ hasText: /^While an avatar is not mandatory, it is highly advisable to have one\. Save$/ }).getByRole('button', { name: 'Save' });
+
   });
 });
