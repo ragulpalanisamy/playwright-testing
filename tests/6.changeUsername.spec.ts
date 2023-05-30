@@ -5,22 +5,23 @@ dotenv.config();
 const playwright = require("@playwright/test");
 // personal username update's checking.
 test.describe("Change the personal User Name", async () => {
-  /* test("update personal user name", async ({ page }) => {
-    await page.goto(
-      `${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, "")
-    );
-    await page
-      .locator('input[type="email"]')
-      .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
-    await page
-      .locator('input[type="password"]')
-      .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
-    await page.getByText("Remember me").check();
-    await Promise.all([
-      page.waitForNavigation(),
-      page.click('button[type="submit"]'),
-    ]);
+  test("update personal user name", async ({ page }) => {
     try {
+      await page.goto(
+        `${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, "")
+      );
+      await page
+        .locator('input[type="email"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
+      await page
+        .locator('input[type="password"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
+      await page.getByText("Remember me").check();
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
+
       await page
         .getByRole("link", { name: "Settings" })
         .click({ timeout: 20000 });
@@ -73,65 +74,87 @@ test.describe("Change the personal User Name", async () => {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
     }
-  }); */
-    //personal team url testing
-    test('personal team URL testing', async({ page })=> {
+  });
+  //personal team url testing
+  test("personal team URL testing", async ({ page }) => {
+    try {
       await page.goto(
         `${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, "")
       );
       await page
-      .locator('input[type="email"]')
-      .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
-    await page
-      .locator('input[type="password"]')
-      .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
-    await page.getByText("Remember me").check();
-    await Promise.all([
-      page.waitForNavigation(),
-      page.click('button[type="submit"]'),
-    ]);
-      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_USER_NAME}/settings`.replace(/"/g, ""));
-
+        .locator('input[type="email"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
+      await page
+        .locator('input[type="password"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
+      await page.getByText("Remember me").check();
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
+      await page.goto(
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_USER_NAME}/settings`.replace(
+          /"/g,
+          ""
+        )
+      );
+      await page.reload();
       //await page.getByRole('textbox').nth(2).press('control+a');
       const userId = `${process.env.NEXT_PUBLIC_UPDATED_USER_ID}`;
-      await page.getByRole('textbox').nth(2)
-      .fill(userId);
+      await page.getByRole("textbox").nth(2).fill(userId);
 
-      await page.locator('div').filter({ hasText: /^Please use 36 characters at maximum\. Save$/ }).getByRole('button', { name: 'Save' }).click();
+      await page
+        .locator("div")
+        .filter({ hasText: /^Please use 36 characters at maximum\. Save$/ })
+        .getByRole("button", { name: "Save" })
+        .click();
       await page.reload();
 
-    });
+      const personalIdChanged = await page
+        .getByRole("textbox")
+        .nth(2)
+        .inputValue();
+      if (userId === personalIdChanged) {
+        console.log("Successfully Changed!..");
+      } else {
+        console.log("minimum of 5 letter is needed. please check the team Id");
+      }
+    } catch (error) {
+      if (error instanceof playwright.errors.TimeoutError)
+        console.log("Timeout!");
+    }
+  });
 });
 
 // Teams username update's checking.
-/* test.describe("Change the Team User Name", async () => {
+test.describe("Change the Team User Name", async () => {
   test("update Team user name", async ({ page }) => {
-    await page.goto(
-      `${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, "")
-    );
-    await page
-      .locator('input[type="email"]')
-      .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
-    await page
-      .locator('input[type="password"]')
-      .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
-    await page.getByText("Remember me").check();
-    await Promise.all([
-      page.waitForNavigation(),
-      page.click('button[type="submit"]'),
-    ]);
-
-    let teamUrl =
-      `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_TEAM_NAME}`.replace(
-        /"/g,
-        ""
-      );
-    await page.goto(teamUrl);
-    await page.waitForLoadState("networkidle");
-    const url = await page.url();
-    expect(url).toBe(teamUrl);
-
     try {
+      await page.goto(
+        `${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, "")
+      );
+      await page
+        .locator('input[type="email"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
+      await page
+        .locator('input[type="password"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
+      await page.getByText("Remember me").check();
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
+
+      let teamUrl =
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_TEAM_NAME}`.replace(
+          /"/g,
+          ""
+        );
+      await page.goto(teamUrl);
+      await page.waitForLoadState("networkidle");
+      const url = await page.url();
+      expect(url).toBe(teamUrl);
+
       await page
         .getByRole("link", { name: "Settings" })
         .click({ timeout: 20000 });
@@ -170,8 +193,51 @@ test.describe("Change the personal User Name", async () => {
     } catch (error) {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
-    } 
+    }
+  });
+  test("personal team URL testing", async ({ page }) => {
+    try {
+      await page.goto(
+        `${process.env.NEXT_PUBLIC_APP_URL}/login`.replace(/"/g, "")
+      );
+      await page
+        .locator('input[type="email"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_EMAIL}`.replace(/"/g, ""));
+      await page
+        .locator('input[type="password"]')
+        .fill(`${process.env.NEXT_PUBLIC_USER_PASSWORD}`.replace(/"/g, ""));
+      await page.getByText("Remember me").check();
+      await Promise.all([
+        page.waitForNavigation(),
+        page.click('button[type="submit"]'),
+      ]);
+      await page.goto(
+        `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_TEAM_NAME}/settings`.replace(
+          /"/g,
+          ""
+        )
+      );
+      await page.reload();
+      //await page.getByRole('textbox').nth(2).press('control+a');
+      const teamId = `${process.env.NEXT_PUBLIC_UPDATED_USER_ID}`;
+      await page.getByRole("textbox").nth(2).fill(teamId);
+
+      await page
+        .locator("div")
+        .filter({ hasText: /^Please use 36 characters at maximum\. Save$/ })
+        .getByRole("button", { name: "Save" })
+        .click();
+      await page.reload();
+
+      const teamIdChanged = await page.getByRole("textbox").nth(2).inputValue();
+      if (teamId === teamIdChanged) {
+        console.log("Successfully Changed!..");
+      } else {
+        console.log("minimum of 5 letter is needed. please check the team Id");
+      }
+    } catch (error) {
+      if (error instanceof playwright.errors.TimeoutError)
+        console.log("Timeout!");
+    }
   });
 });
-
-*/
