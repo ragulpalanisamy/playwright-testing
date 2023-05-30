@@ -109,16 +109,6 @@ test.describe("Change the personal User Name", async () => {
         .getByRole("button", { name: "Save" })
         .click();
       await page.reload();
-
-      const personalIdChanged = await page
-        .getByRole("textbox")
-        .nth(2)
-        .inputValue();
-      if (userId === personalIdChanged) {
-        console.log("Successfully Changed!..");
-      } else {
-        console.log("minimum of 5 letter is needed. please check the team Id");
-      }
     } catch (error) {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
@@ -228,14 +218,8 @@ test.describe("Change the Team User Name", async () => {
         .getByRole("button", { name: "Save" })
         .click();
       await page.reload();
-
-      const teamIdChanged = await page.getByRole("textbox").nth(2).inputValue();
-      if (teamId === teamIdChanged) {
-        console.log("Successfully Changed!..");
-      } else {
-        console.log("minimum of 5 letter is needed. please check the team Id");
-      }
-    } catch (error) {
+    }
+    catch (error) {
       if (error instanceof playwright.errors.TimeoutError)
         console.log("Timeout!");
     }
