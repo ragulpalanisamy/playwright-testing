@@ -19,32 +19,20 @@ test.describe("test for Invoices", async () => {
       page.waitForNavigation(),
       page.click('button[type="submit"]'),
     ]);
-    try {
+   
       await page.getByRole('link', { name: 'Settings' }).click();
       await page.getByRole("link", { name: "Billing" }).click();
-      await page
-        .getByText(
-          "Demo 10956 GmailFreeDocsToggle themeDemo 10956 GmailFreeToggle themeOpen menudem"
-        )
-        .click();
-    } catch (error) {
-      if (error instanceof playwright.errors.TimeoutError)
-        console.log("Timeout!");
-    }
-  });
+      await page.getByRole('link', {name: "Billing Portal"}).click();
+  
+      await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_BILLING_URL}`.replace(/"/g, ""));
 
-  test("billing page", async ({ page }) => {
-    try {
       await page
-        .locator(".FullscreenContent > div > div:nth-child(2) > div")
+        .locator('')
         .click();
       await page.locator('[data-test="update-subscription"]').click();
-      await page
-        .locator("div")
-        .filter({ hasText: /^Basic\$5\.00 per monthSelect$/ })
-        .getByRole("button", { name: "Select" })
-        .click();
-      await page.getByTestId("confirm").click();
+      await page.locator('div').filter({ hasText: /^Standard\$10\.00 per monthSelect$/ }).getByRole('button', { name: 'Select' }).click();
+      await page.goto(`${process.env.NEXT_PUBLIC_BILLING_PLAN}`.replace(/"/g, ""));
+      await page.getByTestId('confirm').click();
       await page
         .frameLocator('iframe[name="__privateStripeFrame32712"]')
         .getByPlaceholder("1234 1234 1234 1234")
@@ -52,7 +40,7 @@ test.describe("test for Invoices", async () => {
       await page
         .frameLocator('iframe[name="__privateStripeFrame32712"]')
         .getByPlaceholder("1234 1234 1234 1234")
-        .fill("4242 4242 4242 4242");
+        .fill(`${process.env.NEXT_PUBLIC_MASTER_CARD}`.replace(/"/g, ""));
       await page
         .frameLocator('iframe[name="__privateStripeFrame32712"]')
         .getByPlaceholder("MM / YY")
@@ -60,7 +48,7 @@ test.describe("test for Invoices", async () => {
       await page
         .frameLocator('iframe[name="__privateStripeFrame32712"]')
         .getByPlaceholder("MM / YY")
-        .fill("06 / 24");
+        .fill(`${process.env.NEXT_PUBLIC_MASTER_DATE}`.replace(/"/g, ""));
       await page
         .frameLocator('iframe[name="__privateStripeFrame32712"]')
         .getByPlaceholder("CVC")
@@ -68,17 +56,11 @@ test.describe("test for Invoices", async () => {
       await page
         .frameLocator('iframe[name="__privateStripeFrame32712"]')
         .getByPlaceholder("CVC")
-        .fill("345");
+        .fill(`${process.env.NEXT_PUBLIC_CVC}`);
       await page.getByTestId("confirm").click();
-      await page.goto(
-        "https://billing.stripe.com/p/session/test_YWNjdF8xTWV0OE5JVWIzV3FKU0lzLF9Oemdua05rNzhWU2toNDVtTktXMTZqcWpMMWozVTVk01001YdJvl5K"
-      );
       await page.goto(
         "https://dev-app.formzillion.com/demo-10956-gmail/settings/billing"
       );
-    } catch (error) {
-      if (error instanceof playwright.errors.TimeoutError)
-        console.log("Timeout!");
-    }
+      await page.reload();
   });
 });
