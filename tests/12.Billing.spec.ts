@@ -26,9 +26,6 @@ test.describe("test for Invoices", async () => {
   
       await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/${process.env.NEXT_PUBLIC_BILLING_URL}`.replace(/"/g, ""));
 
-      await page
-        .locator('')
-        .click();
       await page.locator('[data-test="update-subscription"]').click();
       await page.locator('div').filter({ hasText: /^Standard\$10\.00 per monthSelect$/ }).getByRole('button', { name: 'Select' }).click();
       await page.goto(`${process.env.NEXT_PUBLIC_BILLING_PLAN}`.replace(/"/g, ""));
