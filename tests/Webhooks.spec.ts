@@ -26,13 +26,18 @@ test.describe("Integration testing", async () => {
       // Disconnect the connection
       await page.locator('xpath=/html/body/div[2]/div[2]/main/div/div/div[2]/div/div[1]/div/section/div[3]/div/button').click();
       await page.locator('xpath=/html/body/div[3]/div/div/div[1]/span').click();
+      //reconnect
+      await page.getByRole('menuitem', { name: 'Reconnect' }).click();
     } else {
       // Connect the connection
       await page.locator('xpath=/html/body/div[2]/div[2]/main/div/div/div[2]/div/div[1]/div/section/div[3]/div/button').click();
-      await page.locator('xpath=/html/body/div[3]/div/div/div').click();
+      await page.getByRole('menuitem', { name: 'Reconnect' }).click();
       await page.getByLabel('Connection Name').fill('demo-formzillion');
       await page.getByLabel('Webhooks Endpoint').fill('https://demo-formzillion.free.beeceptor.com');
       await page.getByRole('button', { name: 'Add' }).click();
+      await page.setDefaultNavigationTimeout(20000);
+       // Test case for disconnect
+      await page.getByRole('menuitem', { name: 'Disconnect' }).click();
     }
     
     await page.goto(`${process.env.NEXT_PUBLIC_WEBHOOKS_URL}/integrations`);
